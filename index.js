@@ -27,7 +27,7 @@ function ctor (directory, stdout, stderr) {
 			stdout(name, 'ended with success');
 			return output;
 		}).catch(function (error) {
-			stderr(name, 'ended with error', failure = error);
+			stderr(name, 'ended with error', (failure = error).stack || error);
 		}).then(function (output) {
 			if (!failure) {
 				return handlePiping(name, output);

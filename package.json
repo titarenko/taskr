@@ -1,6 +1,6 @@
 {
   "name": "taskr",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Simplest task management promise-based module",
   "main": "index.js",
   "scripts": {
