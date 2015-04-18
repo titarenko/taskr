@@ -1,5 +1,5 @@
 {
-  "name": "taksr",
+  "name": "taskr",
   "version": "0.1.0",
   "description": "Simplest task management promise-based module",
   "main": "index.js",
