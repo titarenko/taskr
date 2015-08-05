@@ -2,6 +2,10 @@
 
 Simplest task management module.
 
+[![Build Status](https://secure.travis-ci.org/titarenko/taskr.png?branch=master)](https://travis-ci.org/titarenko/taskr) [![Coverage Status](https://coveralls.io/repos/titarenko/taskr/badge.png)](https://coveralls.io/r/titarenko/taskr)
+
+[![NPM](https://nodei.co/npm/taskr.png?downloads=true&stars=true)](https://nodei.co/npm/taskr/)
+
 ## Installation
 
 ```bash
