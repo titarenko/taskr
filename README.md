@@ -12,7 +12,7 @@ npm i taskr --save
 
 ```js
 var queue = require('taskr')({
-	handlers: __dirname + '/tasks', // load each module as task and name (task) after corresponding modules
+	handlers: __dirname + '/tasks', // load each module as task and name each one (task) after corresponding module
 	hooks: {
 		before: function (task, params) { console.log('started task', task, params); },
 		after: function (task, params, result) { console.log('finished task', task, params, result); }
