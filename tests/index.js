@@ -17,4 +17,9 @@ describe('taskr', function () {
 		});
 		queue.start('my task', 42);
 	});
+	it('should throw if no handlers specified', function () {
+		should.throws(function () {
+			taskr({});
+		});
+	});
 });
