@@ -1,6 +1,6 @@
 {
   "name": "taskr",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Simplest task management module",
   "main": "index.js",
   "scripts": {
@@ -15,7 +15,12 @@
     "management",
     "queue",
     "server",
-    "promise"
+    "promise",
+    "pipe",
+    "piping",
+    "schedule",
+    "scheduling",
+    "scheduler"
   ],
   "author": "Constantin Titarenko",
   "license": "MIT",
