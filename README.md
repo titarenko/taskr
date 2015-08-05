@@ -25,7 +25,8 @@ var queue = require('taskr')({
 	},
 	schedule: {
 		'my periodic task runs each 30 seconds': '*/30 * * * * *',
-		'this one takes args': { '2 * * * * *': '2 seconds', '5 * * * * *': '5 secs' }
+		'this one takes args': { '2 * * * * *': 'wow!' }
+		'this one takes args, now with multiple schedules': { '2 * * * * *': '2 seconds', '5 * * * * *': '5 secs' }
 	}
 });
 queue.start('start this immediately', { param: 10 });
