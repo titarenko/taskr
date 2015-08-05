@@ -13,6 +13,9 @@ function create (context) {
 
 	function pipeMessage (task, result) {
 		var next = piping[task];
+		if (!next) {
+			return;
+		}
 		if (_.isArray(next)) {
 			if (_.isArray(result) && next.length === 1) {
 				_.each(result, function (item) {
@@ -28,11 +31,11 @@ function create (context) {
 		}
 	}
 
-	function handleMessage (handler, params, ack) {
+	function handleMessage (task, handler, params, ack) {
 		return Promise
 			.try(function () { return hooks.before(task, params); })
-			.then(function () { return handler(task, params); })
-			.then(function (result) { return hooks.after(task, params, result).return(result); })
+			.then(function () { return handler(params); })
+			.then(function (result) { return Promise.resolve(hooks.after(task, params, result)).return(result); })
 			.then(function (result) { return pipeMessage(task, result); })
 			.tap(function () { ack(); })
 			.catch(function (exception) { hooks.exception(task, params, exception); });
@@ -42,7 +45,7 @@ function create (context) {
 	function subscribeMessageHandlers () {
 		_.each(handlers, function (handler, task) {
 			var options = { concurrency: concurrency[task] || 1 };
-			medium.subscribe(task, _.partial(handleMessage, handler), options);
+			medium.subscribe(task, _.partial(handleMessage, task, handler), options);
 		});
 	}
 
@@ -62,7 +65,7 @@ function create (context) {
 	runSchedule();
 
 	function start (task, params) {
-		medium.publish(util.noramlizeName(task), params);
+		medium.publish(utils.normalizeName(task), params);
 	}
 
 	return {

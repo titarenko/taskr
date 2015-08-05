@@ -4,9 +4,9 @@ var utils = require('./utils');
 var inMemoryMedium = require('./in-memory-medium');
 
 function create (options) {
-	var hooks = _.clone(options.hooks);
+	var hooks = _.clone(options.hooks) || {};
 	_.defaults(hooks, {
-		before: _.identity, 
+		before: _.identity,
 		after: _.identity,
 		exception: _.identity 
 	});
