@@ -53,10 +53,10 @@ function create (context) {
 		_.each(schedule, function (cronTime, task) {
 			if (_.isObject(cronTime)) {
 				_.each(cronTime, function (params, cronTime) {
-					new CronJob(cronTime, _.partial(medium.publish, task, params), true);
+					new CronJob(cronTime, _.partial(medium.publish, task, params), null, true);
 				});
 			} else {
-				new CronJob(cronTime, _.partial(medium.publish, task), true);
+				new CronJob(cronTime, _.partial(medium.publish, task), null, true);
 			}
 		});
 	}
@@ -65,7 +65,7 @@ function create (context) {
 	runSchedule();
 
 	function start (task, params) {
-		medium.publish(utils.normalizeName(task), params);
+		return medium.publish(utils.normalizeName(task), params);
 	}
 
 	return {

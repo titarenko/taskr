@@ -6,7 +6,7 @@ function create () {
 	}
 
 	function publish (task, params) {
-		handlers[task](params, function () {});
+		return handlers[task](params, function () {});
 	}
 
 	return {
