@@ -39,7 +39,7 @@ function create (context) {
 			.then(function (result) { return pipeMessage(task, result); })
 			.then(function () {ack(false);})
 			.catch(function (exception) { return hooks.exception(task, params, exception); })
-			.then(function () {ack(true);});
+			.then(function () {ack(true);}); //@todo maybe it's better to use process.exit(75); (temporary error)
 	}
 
 
