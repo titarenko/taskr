@@ -33,24 +33,18 @@ function create (context) {
 
 	function handleMessage (task, handler, params, ack) {
 		
-		function resolve () {
-			ack(false);
-		}
-		
-		function reject () {
-			ack(true);
-		}
-		
 		return Promise
 			.try(function () { return hooks.before(task, params); })
 			.then(function () { return handler(params); })
 			.then(function (result) { return Promise.resolve(hooks.after(task, params, result)).return(result); })
 			.then(function (result) { return pipeMessage(task, result); })
-			.then(resolve)
-			.catch(function (exception) { return hooks.exception(task, params, exception); })
-			.then(reject); //@todo maybe it's better to use process.exit(75); (temporary error)
+			.tap(function () { ack(); })
+			.catch(function (exception) { 
+				return Promise.resolve(hooks.exception(task, params, exception))
+					.return(exception)
+					.then(ack);
+			});
 	}
-
 
 	function subscribeMessageHandlers () {
 		_.each(handlers, function (handler, task) {
