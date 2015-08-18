@@ -37,8 +37,9 @@ function create (context) {
 			.then(function () { return handler(params); })
 			.then(function (result) { return Promise.resolve(hooks.after(task, params, result)).return(result); })
 			.then(function (result) { return pipeMessage(task, result); })
-			.tap(function () { ack(); })
-			.catch(function (exception) { hooks.exception(task, params, exception); });
+			.then(function () {ack(false);})
+			.catch(function (exception) { return hooks.exception(task, params, exception); })
+			.then(function () {ack(true);});
 	}
 
 
