@@ -1,6 +1,7 @@
 var _ = require('lodash');
 var should = require('should');
 var sinon = require('sinon');
+var Promise = require('bluebird');
 
 var taskr = require('../');
 
@@ -95,11 +96,11 @@ describe('taskr', function () {
 				task: sinon.stub().returns(15)
 			}
 		});
-		queue.start('task', 40).then(function () {
+		Promise.resolve(queue.start('task', 40)).delay(100).then(function () {
 			before.firstCall.args.should.eql(['task', 40]);
 			after.firstCall.args.should.eql(['task', 40, 15]);
 			done();
-		});
+		}).catch(done);
 	});
 	it('should call exception hook', function (done) {
 		var error = new Error('Oh no!');
